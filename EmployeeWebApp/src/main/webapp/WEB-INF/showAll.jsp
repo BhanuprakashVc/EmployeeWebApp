@@ -12,50 +12,57 @@
 	<link rel="stylesheet" href="${cssRoot}/style.css" />
 </head>
 	<body>
-        <form:form method="post" name="flow" commandName="emp">
+        <form:form method="post" name="showAllFlow" commandName="employee">
 		    
 		    <%@ include file="Header_top.jsp" %>
 		    
-			<table border="1" cellspacing="2" cellpadding="2" align="center">
-				<thead>
-					<tr>
-					<td> </td>
+			<table border="1" cellspacing="2" cellpadding="2" align="center" id="showAllTable">
+				<thead bgcolor="yellow">
+					<tr> <td>SELECTION </td>
 					<td> ID </td>
 					<td> FirstName </td>
 					<td> LastName </td>
 					<td> Address </td>
 					<td> LoggedInUserID </td>
-					<td> Operation </td>
 					</tr>
 				</thead>
-				<c:forEach var="emp" items="${empList}" varStatus="i">
 				<tbody>
-				<tr>
-					<td>
-						<input type="radio" name="select"/>
+				<c:forEach var="emp" items="${empList}" varStatus="i">
+				<tr class="row${i.index}" id="row${i.index}">
+					<td align="center">
+						<input type="radio" name="select" value="${emp.selected}" />
 					</td>
-					<td>
+					<td class="data">
 						${emp.ID}
 					</td>
-					<td>
+					<td class="data">
 						${emp.firstName}
 					</td>
-					<td>
+					<td class="data">
 						${emp.lastName}
 					</td>
-					<td>
+					<td class="data">
 						${emp.address}
 					</td>
-					<td>
+					<td class="data">
 						${emp.loggedInUserCaasId}
 					</td>
-					<td>
-						<button name="operation" id="bt-update">UPDATE</button>
+				</tr>
+				</c:forEach>
+				<tr>
+					<td  colspan="3" align="center">
+						<button id="updateButton">Update</button>
+					</td>
+					<td align="center">
+						<button id="deleteButton">Delete</button>
+					</td>
+					<td colspan="2" align="center">
+						<button id="homeButton">Go To Home</button>
 					</td>
 				</tr>
 				</tbody>
-				</c:forEach>
 			</table>
+			<input type="hidden" name="operation" id="operation" value=" " />
 		</form:form>
 </body>
 </html>
