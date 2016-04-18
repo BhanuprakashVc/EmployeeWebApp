@@ -27,6 +27,10 @@
 				<td><form:input path="ID" /></td>
 			</tr>
 			<tr>
+				<td>LoggedInUserID:</td>
+				<td><form:input path="loggedInUserCaasId" /></td>
+			</tr>
+			<tr>
 				<td><form:button onclick="submitCreateEmp()">Submit</form:button>
 				<td><form:button onclick="cancelCreateEmp()">Cancel</form:button></td>
 			</tr>
