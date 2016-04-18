@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,7 +32,7 @@ import com.employee.VIEWS.Operations;
  */
 @Controller
 @RequestMapping("/")
-@SessionAttributes({ "emp" })
+@SessionAttributes({ "user" })
 public class EmployeeController {
 	
 	private List<Employee> empList;
@@ -67,11 +68,12 @@ public class EmployeeController {
 		
         String cassId = ((User) (SecurityContextHolder.getContext().getAuthentication().getPrincipal())) .getUsername();
         emp.setLoggedInUserCaasId(cassId);
-        emp.setFirstName(cassId.toUpperCase());
+        emp.setFirstName("FirstName");
         emp.setLastName("VC");
         emp.setID("1");
+        emp.setAddress("CHENNAI");
         emp.setLang("ENGLISH");
-        uiModel.addAttribute("emp", emp);
+        uiModel.addAttribute("user", emp);
 
 		return Operations.WELCOME.getOperations();
 	}
@@ -108,38 +110,6 @@ public class EmployeeController {
 		// empModel.addAttribute("empList", getEmpList());
 		return new ModelAndView("showAll", "empList",getEmpList());
 	}
-	
-	@RequestMapping(value = "/showAll", method = RequestMethod.POST)
-	public ModelAndView UpdateEmp(@ModelAttribute("emp") Employee emp, HttpServletRequest request,
-			HttpServletResponse response) {
-		// empModel.addAttribute("empList", getEmpList());
-		return new ModelAndView("update", "emp",emp);
-	}
-
-
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	@ResponseBody
-	public ModelAndView updateEmp(@ModelAttribute("emp")Employee emp, HttpServletRequest request,
-			HttpServletResponse response) {
-
-		for(Employee empE : getEmpList()){
-			if(empE.getID() == emp.getID()){
-				empE.setFirstName(emp.getFirstName());
-				empE.setLastName(emp.getLastName());
-				empE.setLang(emp.getLang());
-				empE.setAddress(emp.getAddress());
-			}
-		}
-		return new ModelAndView("updatedMessage");
-	}
-
-	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	@ResponseBody
-	public ModelAndView deleteEmp(Model empModel, HttpServletRequest request,
-			HttpServletResponse response) {
-
-		return new ModelAndView("delete");
-	}
 
 	
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
@@ -149,5 +119,68 @@ public class EmployeeController {
 
 		return new ModelAndView("search");
 	}
+
+	@RequestMapping(value = "showAll/{id}/{firstName}/{lastName}/{address}/{loggedInUserCaasId}", method = RequestMethod.POST)
+	public ModelAndView updatePageToShow(@PathVariable("id") String id,@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName, 
+			@PathVariable("address") String address,
+			@PathVariable("loggedInUserCaasId") String loggedInUserCaasId,  @RequestParam(value="operation", required=false) String operation, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		Employee empToUpdate = null;
+		String viewPage = "";
+		viewPage = (operation.equalsIgnoreCase("update") ? ("update") :("delete"));
+		empToUpdate = new Employee();
+		empToUpdate.setID(id);
+		empToUpdate.setFirstName(firstName);
+		empToUpdate.setLastName(lastName);
+		empToUpdate.setAddress(address);
+		empToUpdate.setLoggedInUserCaasId(loggedInUserCaasId);
+		
+		return new ModelAndView(viewPage, "emp",empToUpdate);
+	}
 	
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public ModelAndView updateEmp(@ModelAttribute("emp") Employee empToUpdate, @RequestParam(value="operation", required=false) String operation, HttpServletRequest request,
+			HttpServletResponse response) {
+		
+		if(operation.equalsIgnoreCase("update")) {
+			for(Employee emp : getEmpList()){
+				if(emp.getID().equals(empToUpdate.getID()) || emp.getFirstName().equals(empToUpdate.getFirstName())
+						 || emp.getLastName().equals(empToUpdate.getLastName())
+						 || emp.getAddress().equals(empToUpdate.getAddress())
+						 || emp.getLoggedInUserCaasId().equals(empToUpdate.getLoggedInUserCaasId()))
+					{
+						emp.setID(empToUpdate.getID());
+						emp.setFirstName(empToUpdate.getFirstName());
+						emp.setLastName(empToUpdate.getLastName());
+						emp.setAddress(empToUpdate.getAddress());
+						emp.setLoggedInUserCaasId(empToUpdate.getLoggedInUserCaasId());
+						break;
+					}
+			}
+		}
+		
+		return new ModelAndView("showAll", "empList",getEmpList());
+	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView deleteEmp(@ModelAttribute("emp") Employee empToDelete, @RequestParam(value="operation", required=false) String operation, HttpServletRequest request,
+			HttpServletResponse response) {
+		if(operation.equalsIgnoreCase("delete")) {
+			for(Employee emp : getEmpList()){
+				if(emp.getID().equals(empToDelete.getID()) || emp.getFirstName().equals(empToDelete.getFirstName())
+						 || emp.getLastName().equals(empToDelete.getLastName())
+						 || emp.getAddress().equals(empToDelete.getAddress())
+						 || emp.getLoggedInUserCaasId().equals(empToDelete.getLoggedInUserCaasId()))
+					{
+						getEmpList().remove(emp);
+						break;
+					}
+			}
+		}
+		
+		return new ModelAndView("showAll", "empList",getEmpList());
+	}
+
 }
