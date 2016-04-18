@@ -6,4 +6,3 @@
 <c:set var="cssRoot" value="${pageContext.request.contextPath}/static/css" />
 <c:set var="jsRoot" value="${pageContext.request.contextPath}/static/js" />
 <c:set var="imageRoot" value="${pageContext.request.contextPath}/static/images" />
-BHANUPRAKASH
