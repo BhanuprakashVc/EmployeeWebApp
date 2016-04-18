@@ -7,10 +7,10 @@ public class Util {
 		Employee emp = new Employee();
 		int i = (int) ((Math.random()* 10)+1);
 		emp.setID(""+i);
-		emp.setFirstName("First"+i);
-		emp.setLastName("last"+i);
+		emp.setFirstName("FirstN"+i);
+		emp.setLastName("LastN"+i);
 		emp.setAddress("CHENNAI"+i);
-		emp.setLoggedInUserCaasId(""+(i * 100000));
+		emp.setLoggedInUserCaasId("User"+i);
 		return emp;
 	}
 
