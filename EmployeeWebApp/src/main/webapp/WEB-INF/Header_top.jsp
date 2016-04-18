@@ -3,6 +3,6 @@
 </div>
 <div class="header-middle">
 	<div class="holder">
-		Welcome ${emp.loggedInUserCaasId}
+		Welcome ${user.loggedInUserCaasId}
 	</div>
 </div>
