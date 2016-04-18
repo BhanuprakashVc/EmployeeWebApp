@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<%@ include file="/includes/header-in.jspf" %>
+<%@ include file="header-in.jspf" %>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Welcome page</title>
 	<script type="text/JavaScript" src="${jsRoot}/jquery.min.js"></script>
