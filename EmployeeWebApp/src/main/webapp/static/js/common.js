@@ -1,36 +1,30 @@
 $(document).ready(function() {
 	
 	$('#bt-go-admin').click(function(){
-		// alert('Button is clicked');
 		document.flow.submit();
 	});
 		
 	$('#bt-add').click(function(){
-		// alert('Add button is clicked');
 		document.getElementById('operation').value='add';
 		document.flow.submit();
 	});
 	
 	$('#bt-search').click(function(){
-		// alert("Search button is clicked");
 		document.getElementById('operation').value='search';
 		document.flow.submit();
 	});
 	
 	$('#bt-update').click(function(){
-		// alert("Update button is clicked");
 		document.getElementById('operation').value='update';
 		document.flow.submit();
 	});
 	
 	$('#bt-delete').click(function(){
-		// alert('delete button is clicked');
 		document.getElementById('operation').value='delete';
 		document.flow.submit();
 	});
 	
 	$('#updateButton').click(function(){
-		// alert('update button is clicked');
 		console.log('update button is clicked');
 		document.getElementById('operation').value='update';
 		var actionChoosen = fetchSelectedValues();
@@ -39,7 +33,6 @@ $(document).ready(function() {
 	});
 	
 	$('#deleteButton').click(function(){
-		// alert('delete button is clicked');
 		console.log('delete button is clicked');
 		document.getElementById('operation').value='delete';
 		var actionChoosen = fetchSelectedValues();
@@ -48,7 +41,6 @@ $(document).ready(function() {
 	});
 	
 	$('#bt-showAll').click(function(){
-		// alert('showAll button is clicked');
 		console.log('showAll button is clicked');
 		document.flow.action="showAll";
 		document.flow.method="GET";
@@ -56,7 +48,6 @@ $(document).ready(function() {
 	});
 	
 	$('#homeButton').click(function(){
-		// alert('home button is clicked');
 		console.log('home button is clicked');
 		document.showAllFlow.action="welcome";
 		document.showAllFlow.method="GET";
@@ -87,38 +78,32 @@ $(document).ready(function() {
 
 function submitCreateEmp()
 {
-	// alert("submitCreateEmp is clicked");
 	document.createEmp.action="add";
 	document.createEmp.submit();
 }
 
 function cancelCreateEmp()
 {
-	// alert("cancelCreateEmp is clicked - so reset is made");
 	document.createEmp.action="welcome";
 	document.createEmp.submit();
 }
 
 function submitUpdateEmp(){
-	// alert("submitUpdateEmp is clicked");
 	document.getElementById('operation').value='update';
 	document.updateEmp.submit();
 }
 
 function cancelUpdateEmp(){
-	// alert("cancelUpdateEmp is clicked ");
 	document.getElementById('operation').value='cancel';
 	document.updateEmp.submit();
 }
 
 function submitDeleteEmp(){
-	// alert("submitDeleteEmp is clicked ");
 	document.getElementById('operation').value='delete';
 	document.deleteEmp.submit();
 }
 
 function cancelDeleteEmp(){
-	// alert("cancelDeleteEmp is clicked ");
 	document.getElementById('operation').value='cancel';
 	document.deleteEmp.submit();
 }
