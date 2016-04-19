@@ -7,7 +7,7 @@
 </head>
 <body>
 	<%@ include file="Header_top.jsp" %>
-	<h2 align="center">Create Employee Information using below form</h2>
+	<h2 align="center">Update Employee Information using below form</h2>
 	<form:form method="post" action="${pageContext.request.contextPath}/update" name="updateEmp" commandName="emp">
 		<table name="employeeTable" align="center" border="2" cellspacing="2" cellpadding="2">
 			<tr>
