@@ -69,9 +69,9 @@ public class EmployeeController {
         String cassId = ((User) (SecurityContextHolder.getContext().getAuthentication().getPrincipal())) .getUsername();
         emp.setLoggedInUserCaasId(cassId);
         emp.setFirstName("FirstName");
-        emp.setLastName("VC");
-        emp.setID("1");
-        emp.setAddress("CHENNAI");
+        emp.setLastName("LastName");
+        emp.setID("12345");
+        emp.setAddress("US");
         emp.setLang("ENGLISH");
         uiModel.addAttribute("user", emp);
 
@@ -85,41 +85,30 @@ public class EmployeeController {
 			final HttpServletRequest request,
 			final HttpServletResponse response) {
 
-		System.out.println("Operation done: "+operation);
-		System.out.println("User retrieved from Welcome page: " + emp.getFirstName());
+		// System.out.println("Operation done: "+operation);
+		// System.out.println("User retrieved from Welcome page: " + emp.getFirstName());
 		uiModel.addAttribute(emp);
 		return Operations.create.getOperations();
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	//@ResponseBody
 	public String createEmp(@ModelAttribute("emp") Employee emp,
 			Model uiModel,
 			HttpServletRequest request,
 			HttpServletResponse response) {
 
 		getEmpList().add(emp);
-		System.out.println("Successfully "+ emp.getFirstName()+ " Employee is added to Employee Association");
-		// return "Successfully "+ emp.getFirstName()+ " Employee is added to Employee Association";
+		// System.out.println("Successfully "+ emp.getFirstName()+ " Employee is added to Employee Association");
 		return "redirect:showAll";
 	}
 	
 	@RequestMapping(value = "/showAll", method = RequestMethod.GET)
 	public ModelAndView showAllEmp(HttpServletRequest request,
 			HttpServletResponse response) {
-		// empModel.addAttribute("empList", getEmpList());
 		return new ModelAndView("showAll", "empList",getEmpList());
 	}
 
 	
-	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	@ResponseBody
-	public ModelAndView readEmp(Model empModel, HttpServletRequest request,
-			HttpServletResponse response) {
-
-		return new ModelAndView("search");
-	}
-
 	@RequestMapping(value = "showAll/{id}/{firstName}/{lastName}/{address}/{loggedInUserCaasId}", method = RequestMethod.POST)
 	public ModelAndView updatePageToShow(@PathVariable("id") String id,@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName, 
 			@PathVariable("address") String address,
