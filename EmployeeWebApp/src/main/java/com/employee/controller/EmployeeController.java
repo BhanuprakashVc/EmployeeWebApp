@@ -153,7 +153,7 @@ public class EmployeeController {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	@ResponseBody
+	// @ResponseBody
 	public ModelAndView deleteEmp(@ModelAttribute("emp") Employee empToDelete, @RequestParam(value="operation", required=false) String operation, HttpServletRequest request,
 			HttpServletResponse response) {
 		if(operation.equalsIgnoreCase("delete")) {
