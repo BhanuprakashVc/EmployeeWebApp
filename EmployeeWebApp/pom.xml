@@ -31,7 +31,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0  file:///C:/Softwares/mave
 		<dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
-            <version>4.0.0.RELEASE</version>
+            <version>5.2.10.RELEASE</version>
         </dependency>
 
         <dependency>
